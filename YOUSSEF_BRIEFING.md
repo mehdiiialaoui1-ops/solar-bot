@@ -21,11 +21,11 @@ Ouvre Cowork → va dans les connecteurs → connecte dans cet ordre :
 | **Google Drive** | Connect → autorise avec ton compte Google | 🟡 Utile |
 
 ### Étape 2 — GitHub
-- Accepte l'invitation GitHub reçue par email (repo `solar-bot` de `mehdiiiialaoui1-ops`)
+- Accepte l'invitation GitHub reçue par email (repo `solar-bot` de `mehdiiialaoui1-ops`)
 - Pour accéder au repo depuis Cowork : utilise **Claude in Chrome** → navigue sur `github.com`
 - Clone le repo en local sur ta machine :
 ```bash
-git clone https://github.com/mehdiiiialaoui1-ops/solar-bot.git
+git clone https://github.com/mehdiiialaoui1-ops/solar-bot.git
 cd solar-bot
 git checkout -b feature/setup-initial
 ```
