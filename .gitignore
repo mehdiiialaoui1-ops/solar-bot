@@ -1,0 +1,55 @@
+# ─────────────────────────────────────────────
+# ERE SOLAR BOT — .gitignore
+# ─────────────────────────────────────────────
+
+# Skills packagés (artefacts de build, non versionner)
+.claude/skills/packaged/
+
+# Dépendances Node
+node_modules/
+.pnp
+.pnp.js
+
+# Build Next.js
+.next/
+out/
+dist/
+
+# Env variables — NE JAMAIS COMMITER
+.env
+.env*.local
+.env.production
+.env.development
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tests / coverage
+coverage/
+.vitest-cache/
+
+# Données prospects sensibles (RGPD)
+03_data/prospects/*.csv
+03_data/prospects/*.xlsx
+03_data/prospects/*.json
+
+# Fichiers temporaires Cowork
+*.skill
+skill-test-review.html
+
+# Token GitHub — NE JAMAIS COMMITER
+token*.txt
+*token*.txt
