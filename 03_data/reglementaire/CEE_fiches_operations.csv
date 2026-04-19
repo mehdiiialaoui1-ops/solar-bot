@@ -1,0 +1,6 @@
+fiche,intitule,secteur,applicable_solaire,montant_estime_mwhc,notes
+BAT-EN-101,Isolation des combles ou toiture,tertiaire,travaux_annexes,NA,Combinable avec rénovation toiture avant pose PV
+BAT-EN-102,Isolation des murs,tertiaire,travaux_annexes,NA,Travaux complémentaires
+BAT-TH-116,Système de GTB,tertiaire,combinable,NA,Monitoring énergie compatible solaire
+BAT-TH-113,PAC air/eau,tertiaire,combinable,NA,Remplacement CVC - économies cumulables
+IND-UT-117,Variateur de vitesse moteurs,industriel,combinable,NA,Applicable industrie

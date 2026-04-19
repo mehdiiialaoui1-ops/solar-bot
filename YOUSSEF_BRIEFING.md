@@ -1,5 +1,5 @@
 # 📋 Briefing Youssef — ERE SOLAR BOT
-> Mis à jour le 13 avril 2026 — v2 (A.5 skills ajoutés) — À consulter à chaque début de session
+> Mis à jour le 19 avril 2026 — v3 (Sprint MVP v1 détaillé) — À consulter à chaque début de session
 
 ---
 
@@ -121,15 +121,68 @@ git push origin feature/nom-de-la-tache
 
 ---
 
-## 🚀 Sprint actuel — MVP v1 (14 → 22 avril 2026)
+## 🚀 Sprint actuel — MVP v1 (14 → 24 avril 2026)
 
-**Objectif :** Premier pipeline fonctionnel de bout en bout
+**Objectif :** Premier pipeline fonctionnel de bout en bout — sourcing cadastre → 50 vrais emails envoyés
 
-Tes 4 issues à livrer avant le 22 avril :
-1. ☐ Repo GitHub initialisé avec structure de dossiers
-2. ☐ Next.js 14 + TypeScript + Vitest opérationnel
-3. ☐ Supabase EU provisionné + schéma DB initial
-4. ☐ Vercel configuré + déploiement preview automatique
+**Principe :** Mehdi fait les specs/data/métier en parallèle. Toi tu fais le code/infra. On ne se marche pas dessus. Points de sync signalés ⚡.
+
+**Plan détaillé complet :** voir `01_specs/SPRINT_MVP_v1.md`
+
+### Tes tâches jour par jour
+
+| Jour | Branche Git | Ce que tu livres |
+|------|-------------|------------------|
+| **J1** lun 14 | `feature/scaffolding-nextjs` | Next.js 14 + TS + Vitest + Supabase EU + Vercel preview |
+| **J2** mar 15 | `feature/supabase-schema` | Table `prospects` complète (colonnes enrichissement + dirigeant) + RLS |
+| **J3** mer 16 | `feature/sourcing-cadastre` | Modules API Cadastre IGN + BDNB + insertion Supabase + tests |
+| **J4** jeu 17 | `feature/google-solar-api` | Google Maps Static + Solar API + filtre 70% panneaux + tests |
+| **J5** ven 18 | `feature/solar-calculs` | Calcul économies + projection pixel (Web Mercator) + overlay SVG + tests |
+| **J6** lun 21 | `feature/enrichment-decideur` | Pappers API + Dropcontact + cascade enrichissement + tests |
+| **J7** mar 22 | `feature/outreach-email` | Génération email Claude API + intégration Lemlist + tests |
+| **J8** mer 23 | `feature/microsite-template` | Template micro-site statique (hero image + données + CTA Cal.com) |
+| **J9** jeu 24 | `feature/pipeline-e2e` | Pipeline bout en bout + monitoring + merge final |
+
+### Points de sync ⚡ obligatoires
+
+- **Fin J2** : Mehdi valide le schéma Supabase vs. ses specs métier
+- **Fin J5** (point hebdo vendredi 17h) : tu fais une démo overlay panneaux sur un vrai bâtiment
+- **Mi-J7** : Mehdi valide les emails générés par Claude API
+- **J9 matin** : Go/No-Go avant envoi des 50 emails
+
+### Structure de code à respecter
+
+```
+04_code/src/
+├── sourcing/          ← J3 : cadastre-ign.ts, bdnb.ts, index.ts
+├── imagery/           ← J4 : google-maps-static.ts
+├── solar/             ← J4-J5 : google-solar.ts, panel-filter.ts, economies.ts, pixel-projection.ts, overlay-svg.ts
+├── enrichment/        ← J6 : pappers.ts, dropcontact.ts, cascade.ts
+├── outreach/          ← J7 : email-generator.ts, lemlist.ts, index.ts
+├── microsite/         ← J8 : template Next.js
+└── pipeline/          ← J9 : run.ts (orchestrateur complet)
+```
+
+### Rappels techniques
+
+- **Tests Vitest obligatoires** sur : `economies.ts`, `pixel-projection.ts`, parsing API (cadastre, BDNB, Solar, Pappers)
+- **Filtre panneaux** : prendre les 70% meilleurs par `yearlyEnergyDcKwh` (pas 100%, ça sonne faux)
+- **Supabase Storage** : y stocker les PNG satellite + SVG overlay
+- **Projection pixel** : fonction `latLngToPixel()` avec Web Mercator (voir guide §6.3d)
+- **Panneau standard** : 1,045 m × 1,879 m, 400 W
+
+---
+
+### Clés API dont tu auras besoin (Mehdi te les fournit)
+
+| API | Quand | Qui crée le compte |
+|-----|-------|---------------------|
+| Google Maps + Solar | J3-J4 | Mehdi (Google Cloud) |
+| Pappers | J6 | Mehdi |
+| Dropcontact | J6 | Mehdi |
+| Lemlist | J7 | Mehdi |
+
+Tu n'as **rien à payer** — Mehdi gère tous les abonnements.
 
 ---
 

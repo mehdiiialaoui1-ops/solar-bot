@@ -1,0 +1,8 @@
+trimestre,mode,puissance_min_kwc,puissance_max_kwc,tarif_eur_kwh,notes
+T2_2026,surplus,0,9,0.0400,Tarif fixe 20 ans - DCR détermine le barème
+T2_2026,surplus,9,100,0.0536,Tarif fixe 20 ans - DCR détermine le barème
+T2_2026,surplus,100,500,AO_CRE,Appel d'offres CRE obligatoire
+T2_2026,vente_totale,0,9,NA,Plus accessible depuis mars 2025
+T2_2026,vente_totale,9,36,0.0805,Tarif fixe 20 ans
+T2_2026,vente_totale,36,100,0.0700,Tarif fixe 20 ans
+T2_2026,vente_totale,100,500,AO_CRE,Appel d'offres CRE obligatoire

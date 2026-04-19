@@ -1,0 +1,5 @@
+trimestre,puissance_min_kwc,puissance_max_kwc,prime_eur_kwc,plafond_eur,versement,notes
+T2_2026,0,9,80,720,unique,Versement ~1 an après mise en service sur 1re facture EDF OA
+T2_2026,9,36,120,4320,unique,Versement ~1 an après mise en service
+T2_2026,36,100,60,6000,unique,Versement ~1 an après mise en service
+T2_2026,100,999999,0,0,NA,Pas de prime au-delà de 100 kWc
