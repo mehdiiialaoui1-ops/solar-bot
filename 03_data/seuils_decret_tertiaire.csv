@@ -1,0 +1,4 @@
+palier,annee,reduction_pct,base_calcul,sanctions,notes
+P1,2030,40,consommation_reference_2010,mise_en_demeure_prefectorale,Ou valeur forfaitaire si référence indisponible
+P2,2040,50,consommation_reference_2010,amende_7500_eur_an,Cumul avec P1 exigé
+P3,2050,60,consommation_reference_2010,amende_7500_eur_an,Objectif neutralité carbone
