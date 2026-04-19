@@ -4,7 +4,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js'
-import type { Prospect, CalculSolaire, OutreachContact, OutreachCampagne, Microsite } from '@/types'
+import type { Prospect, CalculSolaire, OutreachContact } from '@/types'
 
 // Types de la base de données
 export interface Database {
