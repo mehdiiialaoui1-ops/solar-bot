@@ -1,0 +1,7 @@
+puissance_kwc,tarif_type,tarif_centime_kwh,source,date_maj,notes
+0-3,prime_autoconsommation,33.0,CRE arrêté tarifaire,2026-01,Prime en €/kWc (330€/kWc)
+3-9,prime_autoconsommation,23.0,CRE arrêté tarifaire,2026-01,Prime en €/kWc (230€/kWc)
+9-36,prime_autoconsommation,20.0,CRE arrêté tarifaire,2026-01,Prime en €/kWc (200€/kWc)
+36-100,prime_autoconsommation,10.0,CRE arrêté tarifaire,2026-01,Prime en €/kWc (100€/kWc)
+0-100,rachat_surplus_OA,13.0,EDF OA,2026-01,Tarif rachat surplus autoconsommation en c€/kWh
+100-500,appel_offres_CRE,variable,CRE AO S21,2026-01,Prix résultant des appels d'offres CRE
