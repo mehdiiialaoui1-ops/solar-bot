@@ -119,7 +119,6 @@ export type Database = {
           image_satellite_url: string | null
           last_visit_at: string | null
           nb_clics_rdv: number | null
-          nb_vues: number | null
           prospect_id: string
           slug: string
           sous_titre: string | null
@@ -142,7 +141,6 @@ export type Database = {
           image_satellite_url?: string | null
           last_visit_at?: string | null
           nb_clics_rdv?: number | null
-          nb_vues?: number | null
           prospect_id: string
           slug: string
           sous_titre?: string | null
@@ -165,7 +163,6 @@ export type Database = {
           image_satellite_url?: string | null
           last_visit_at?: string | null
           nb_clics_rdv?: number | null
-          nb_vues?: number | null
           prospect_id?: string
           slug?: string
           sous_titre?: string | null
