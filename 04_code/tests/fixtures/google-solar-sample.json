@@ -1,0 +1,82 @@
+{
+  "name": "buildings/ChIJN1t_tDeuEmsRUsoyG83frY4",
+  "center": {
+    "latitude": 48.8566,
+    "longitude": 2.3522
+  },
+  "imageryDate": {
+    "year": 2024,
+    "month": 6,
+    "day": 15
+  },
+  "imageryProcessedDate": {
+    "year": 2024,
+    "month": 8,
+    "day": 1
+  },
+  "postalCode": "75001",
+  "administrativeArea": "Île-de-France",
+  "regionCode": "FR",
+  "imageryQuality": "HIGH",
+  "solarPotential": {
+    "maxArrayPanelsCount": 248,
+    "maxArrayAreaMeters2": 487.3,
+    "maxSunshineHoursPerYear": 1543,
+    "carbonOffsetFactorKgPerMwh": 26.5,
+    "panelCapacityWatts": 400,
+    "panelHeightMeters": 1.879,
+    "panelWidthMeters": 1.045,
+    "panelLifetimeYears": 25,
+    "wholeRoofStats": {
+      "areaMeters2": 642.8,
+      "sunshineQuantiles": [120, 540, 980, 1240, 1450, 1543, 1620, 1680, 1720, 1750, 1780],
+      "groundAreaMeters2": 580.2
+    },
+    "roofSegmentStats": [
+      {
+        "pitchDegrees": 22,
+        "azimuthDegrees": 178,
+        "stats": {
+          "areaMeters2": 290.5,
+          "groundAreaMeters2": 270.1
+        },
+        "center": {"latitude": 48.85661, "longitude": 2.35221},
+        "planeHeightAtCenterMeters": 18.4
+      },
+      {
+        "pitchDegrees": 22,
+        "azimuthDegrees": 358,
+        "stats": {
+          "areaMeters2": 196.8,
+          "groundAreaMeters2": 184.5
+        },
+        "center": {"latitude": 48.85659, "longitude": 2.35219},
+        "planeHeightAtCenterMeters": 18.4
+      }
+    ],
+    "solarPanelConfigs": [
+      {
+        "panelsCount": 50,
+        "yearlyEnergyDcKwh": 18750,
+        "roofSegmentSummaries": [
+          {"pitchDegrees": 22, "azimuthDegrees": 178, "panelsCount": 50, "yearlyEnergyDcKwh": 18750, "segmentIndex": 0}
+        ]
+      },
+      {
+        "panelsCount": 100,
+        "yearlyEnergyDcKwh": 36800,
+        "roofSegmentSummaries": [
+          {"pitchDegrees": 22, "azimuthDegrees": 178, "panelsCount": 100, "yearlyEnergyDcKwh": 36800, "segmentIndex": 0}
+        ]
+      },
+      {
+        "panelsCount": 248,
+        "yearlyEnergyDcKwh": 88560,
+        "roofSegmentSummaries": [
+          {"pitchDegrees": 22, "azimuthDegrees": 178, "panelsCount": 152, "yearlyEnergyDcKwh": 56240, "segmentIndex": 0},
+          {"pitchDegrees": 22, "azimuthDegrees": 358, "panelsCount": 96, "yearlyEnergyDcKwh": 32320, "segmentIndex": 1}
+        ]
+      }
+    ]
+  }
+}
