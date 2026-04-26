@@ -1,0 +1,61 @@
+{
+  "count": 4,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "batiment_groupe_id": "bdnb-bg-75001-001",
+      "code_insee": "75101",
+      "code_departement_insee": "75",
+      "code_postal": "75001",
+      "libelle_adr_principale_ban": "12 rue de Rivoli, 75001 Paris",
+      "geom_centroide": "POINT(2.3522 48.8566)",
+      "surface_activite": 2150,
+      "usage_principal_bdnb_open": "tertiaire",
+      "annee_construction": 1995,
+      "nb_niveau": 5,
+      "siret_proprietaire": "12345678900001"
+    },
+    {
+      "batiment_groupe_id": "bdnb-bg-75001-002",
+      "code_insee": "75101",
+      "code_departement_insee": "75",
+      "code_postal": "75001",
+      "libelle_adr_principale_ban": "8 avenue de l'Opéra, 75001 Paris",
+      "geom_centroide": "POINT(2.3340 48.8650)",
+      "surface_activite": 850,
+      "usage_principal_bdnb_open": "tertiaire",
+      "annee_construction": 1978,
+      "nb_niveau": 4,
+      "siret_proprietaire": "98765432100012"
+    },
+    {
+      "batiment_groupe_id": "bdnb-bg-75001-003",
+      "code_insee": "75101",
+      "code_departement_insee": "75",
+      "code_postal": "75001",
+      "libelle_adr_principale_ban": "Petit local 75001",
+      "geom_centroide": "POINT(2.3400 48.8600)",
+      "surface_activite": 320,
+      "usage_principal_bdnb_open": "tertiaire",
+      "annee_construction": 2002,
+      "nb_niveau": 2,
+      "siret_proprietaire": null
+    },
+    {
+      "batiment_groupe_id": "bdnb-bg-75001-004",
+      "code_insee": "75101",
+      "code_departement_insee": "75",
+      "code_postal": "75001",
+      "libelle_adr_principale_ban": "Entrepôt logistique 75",
+      "geom_centroide": null,
+      "latitude": 48.8700,
+      "longitude": 2.3500,
+      "surface_activite": 7800,
+      "usage_principal_bdnb_open": "industriel",
+      "annee_construction": 2010,
+      "nb_niveau": 1,
+      "siret_proprietaire": "55555555500011"
+    }
+  ]
+}
