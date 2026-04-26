@@ -1,0 +1,93 @@
+{
+  "type": "FeatureCollection",
+  "totalFeatures": 3,
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2.3522, 48.8566],
+            [2.3530, 48.8566],
+            [2.3530, 48.8572],
+            [2.3522, 48.8572],
+            [2.3522, 48.8566]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "750010000AB0001",
+        "numero": "0001",
+        "feuille": 1,
+        "section": "AB",
+        "code_dep": "75",
+        "code_com": "101",
+        "code_insee": "75101",
+        "com_abs": "000",
+        "echelle": "1/500",
+        "edition": 2024,
+        "date_creation": "2024-01-15",
+        "contenance": 1250
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2.3540, 48.8580],
+            [2.3548, 48.8580],
+            [2.3548, 48.8585],
+            [2.3540, 48.8585],
+            [2.3540, 48.8580]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "750010000AB0002",
+        "numero": "0002",
+        "feuille": 1,
+        "section": "AB",
+        "code_dep": "75",
+        "code_com": "101",
+        "code_insee": "75101",
+        "com_abs": "000",
+        "echelle": "1/500",
+        "edition": 2024,
+        "date_creation": "2024-01-15",
+        "contenance": 320
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2.3600, 48.8600],
+            [2.3620, 48.8600],
+            [2.3620, 48.8620],
+            [2.3600, 48.8620],
+            [2.3600, 48.8600]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "750010000AB0003",
+        "numero": "0003",
+        "feuille": 1,
+        "section": "AB",
+        "code_dep": "75",
+        "code_com": "101",
+        "code_insee": "75101",
+        "com_abs": "000",
+        "echelle": "1/500",
+        "edition": 2024,
+        "date_creation": "2024-01-15",
+        "contenance": 5400
+      }
+    }
+  ]
+}
