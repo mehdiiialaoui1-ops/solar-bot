@@ -1,0 +1,17 @@
+{
+  "id": "msg_test_01",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-sonnet-4-6",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 380,
+    "output_tokens": 142
+  },
+  "content": [
+    {
+      "type": "text",
+      "text": "Objet : Solarisation toiture Vénissieux — étude personnalisée\n\nMarie,\n\nVotre bâtiment de 2 150 m² au 12 rue de Rivoli est concerné par l'obligation APER avant juillet 2026.\n\nNotre analyse via imagerie satellite haute résolution montre que votre toiture peut accueillir 99 kWc de panneaux solaires, soit une production estimée de 88 560 kWh/an et 13 284 €/an d'économie sur votre facture d'électricité.\n\nJ'ai préparé une simulation complète (rentabilité, aides mobilisables, planning de mise en œuvre) consultable ici : https://solar.ere-experts.fr/m/lefebvre-acme. 30 minutes pour en discuter ?\n\nYoussef Aït-Saïd — ERE Experts"
+    }
+  ]
+}
