@@ -115,38 +115,44 @@ export async function fetchEntreprise(
 
 /**
  * Détermine le rang de ciblage à partir de la qualité Pappers.
- * Chaîne de matching insensible à la casse, par mots-clés.
+ * Chaîne de matching insensible à la casse, par stems pour gérer
+ * les formes féminines (Présidente, Directrice, etc.) et masculines.
  */
 export function qualiteVersRang(qualite: string | undefined): RangCiblage {
   if (!qualite) return 6
   const q = qualite.toLowerCase()
 
-  // Rang 1 - Propriétaire-dirigeant
+  // Rang 1 - Propriétaire-dirigeant (président·e, gérant·e)
   if (
-    q.includes('président du directoire') ||
-    q.includes('président') ||
-    q.includes('gérant') ||
-    q.includes('gerant')
+    q.includes('président') ||  // président, présidente, président du directoire
+    q.includes('president') ||  // sans accent
+    q.includes('gérant') ||     // gérant, gérante
+    q.includes('gerant')        // sans accent
   ) {
     return 1
   }
-  // Rang 2 - Directeur général
-  if (q.includes('directeur général') || q.includes('directeur general') || q === 'dg') {
+
+  const motDirecteur = q.includes('directeur') || q.includes('directrice')
+
+  // Rang 2 - Directeur·trice général·e (couvre DG délégué·e aussi)
+  if (
+    (motDirecteur && (q.includes('général') || q.includes('general'))) ||
+    q === 'dg'
+  ) {
     return 2
   }
-  // Rang 3 - DAF
-  if (
-    q.includes('administratif et financier') ||
-    q.includes('directeur financier') ||
-    q === 'daf'
-  ) {
+  // Rang 3 - DAF (administratif·ve et financier·ère, ou directeur·trice financier·ère)
+  if (q.includes('administrati') && q.includes('financ')) {
     return 3
   }
-  // Rang 4 - Directeur immobilier
-  if (
-    q.includes('immobilier') ||
-    q.includes('patrimoine')
-  ) {
+  if (motDirecteur && q.includes('financ')) {
+    return 3
+  }
+  if (q === 'daf') {
+    return 3
+  }
+  // Rang 4 - Immobilier / patrimoine
+  if (q.includes('immobil') || q.includes('patrimoine')) {
     return 4
   }
   // Rang 5 - RSE / Développement durable
