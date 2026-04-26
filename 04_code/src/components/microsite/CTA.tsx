@@ -28,7 +28,7 @@ export function CTA({ data }: CTAProps) {
             margin: '0 auto 16px',
           }}
         >
-          Discutons concrètement de votre projet en 30 minutes
+          Discutons concrètement de votre projet en 15 minutes
         </h2>
         <p
           style={{
@@ -39,9 +39,8 @@ export function CTA({ data }: CTAProps) {
             margin: '0 auto 32px',
           }}
         >
-          Un expert ERE Experts vous présente l&apos;étude détaillée
-          (devis, planning, financement) et répond à toutes vos
-          questions, sans engagement.
+          Un échange de 15 minutes, sans engagement, pour valider
+          ces résultats et répondre à vos questions.
         </p>
         <a
           href={data.cta.rdv_url}
