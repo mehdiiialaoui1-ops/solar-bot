@@ -82,11 +82,7 @@ export async function calculerPotentielSolaire(
   const prime = calculerPrimeAutoconsommation(calcul.puissance_kwc)
   const sura = calculerSuramortissement(cout)
   const aidesTotales = prime + sura
-  const roi = calculerROI({
-    coutInstallationEur: cout,
-    economieAnnuelleEur: economie,
-    aidesTotalesEur: aidesTotales,
-  })
+  const roi = calculerROI(cout, economie, aidesTotales)
 
   return {
     ...calcul,
