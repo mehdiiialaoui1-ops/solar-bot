@@ -1,0 +1,54 @@
+{
+  "request_id": "req-test-001",
+  "data": [
+    {
+      "first_name": "Marie",
+      "last_name": "Lefebvre",
+      "company": "ACME LOGISTIQUE SAS",
+      "siren": "552032534",
+      "email": [
+        {
+          "email": "marie.lefebvre@acme-logistique.fr",
+          "qualification": "valid"
+        }
+      ],
+      "phone": [
+        {
+          "number": "+33 4 78 12 34 56",
+          "type": "office"
+        }
+      ],
+      "linkedin": "https://www.linkedin.com/in/marie-lefebvre-acme",
+      "website": "https://www.acme-logistique.fr"
+    },
+    {
+      "first_name": "Jean-Pierre",
+      "last_name": "Dupont",
+      "company": "ACME LOGISTIQUE SAS",
+      "siren": "552032534",
+      "email": [
+        {
+          "email": "jp.dupont@gmail.com",
+          "qualification": "valid"
+        },
+        {
+          "email": "jp.dupont@acme-logistique.fr",
+          "qualification": "risky"
+        }
+      ],
+      "phone": [],
+      "linkedin": null,
+      "website": "https://www.acme-logistique.fr"
+    },
+    {
+      "first_name": "Sophie",
+      "last_name": "Martin",
+      "company": "ACME LOGISTIQUE SAS",
+      "siren": "552032534",
+      "email": [],
+      "phone": [],
+      "linkedin": null,
+      "website": "https://www.acme-logistique.fr"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "siren": "552032534",
+  "denomination": "ACME LOGISTIQUE SAS",
+  "forme_juridique": "SAS",
+  "date_creation": "1985-03-12",
+  "effectif": "100 a 199 salaries",
+  "siege": {
+    "adresse_ligne_1": "12 avenue de la Republique",
+    "code_postal": "69100",
+    "ville": "Villeurbanne",
+    "domaine_activite": "Entreposage et stockage non frigorifique",
+    "url_site_web": "https://www.acme-logistique.fr"
+  },
+  "representants": [
+    {
+      "nom": "Lefebvre",
+      "prenom": "Marie",
+      "qualite": "Présidente",
+      "type_representant": "dirigeant",
+      "date_prise_poste": "2018-06-01",
+      "date_fin_poste": null
+    },
+    {
+      "nom": "Dupont",
+      "prenom": "Jean-Pierre",
+      "qualite": "Directeur Général",
+      "type_representant": "dirigeant",
+      "date_prise_poste": "2020-01-15",
+      "date_fin_poste": null
+    },
+    {
+      "nom": "Martin",
+      "prenom": "Sophie",
+      "qualite": "Directrice Administrative et Financière",
+      "type_representant": "dirigeant",
+      "date_prise_poste": "2021-09-01",
+      "date_fin_poste": null
+    },
+    {
+      "nom": "Ancien",
+      "prenom": "Robert",
+      "qualite": "Président",
+      "type_representant": "dirigeant",
+      "date_prise_poste": "2010-01-01",
+      "date_fin_poste": "2018-05-31"
+    }
+  ],
+  "beneficiaires_effectifs": [
+    {
+      "nom": "Lefebvre",
+      "prenom": "Marie",
+      "pourcentage_parts": 65
+    }
+  ]
+}
