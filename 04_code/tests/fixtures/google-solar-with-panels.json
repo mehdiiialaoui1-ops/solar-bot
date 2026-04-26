@@ -1,0 +1,94 @@
+{
+  "name": "buildings/test_overlay",
+  "center": {
+    "latitude": 45.7485,
+    "longitude": 4.8467
+  },
+  "imageryDate": { "year": 2024, "month": 6, "day": 15 },
+  "regionCode": "FR",
+  "imageryQuality": "HIGH",
+  "solarPotential": {
+    "maxArrayPanelsCount": 8,
+    "maxArrayAreaMeters2": 15.7,
+    "panelCapacityWatts": 400,
+    "panelHeightMeters": 1.879,
+    "panelWidthMeters": 1.045,
+    "panelLifetimeYears": 25,
+    "wholeRoofStats": {
+      "areaMeters2": 200,
+      "groundAreaMeters2": 195
+    },
+    "roofSegmentStats": [
+      {
+        "pitchDegrees": 22,
+        "azimuthDegrees": 178,
+        "stats": { "areaMeters2": 100 }
+      },
+      {
+        "pitchDegrees": 22,
+        "azimuthDegrees": 358,
+        "stats": { "areaMeters2": 100 }
+      }
+    ],
+    "solarPanels": [
+      {
+        "center": { "latitude": 45.74852, "longitude": 4.84672 },
+        "orientation": "PORTRAIT",
+        "yearlyEnergyDcKwh": 360,
+        "segmentIndex": 0
+      },
+      {
+        "center": { "latitude": 45.74852, "longitude": 4.84675 },
+        "orientation": "PORTRAIT",
+        "yearlyEnergyDcKwh": 358,
+        "segmentIndex": 0
+      },
+      {
+        "center": { "latitude": 45.74852, "longitude": 4.84678 },
+        "orientation": "PORTRAIT",
+        "yearlyEnergyDcKwh": 355,
+        "segmentIndex": 0
+      },
+      {
+        "center": { "latitude": 45.74852, "longitude": 4.84681 },
+        "orientation": "PORTRAIT",
+        "yearlyEnergyDcKwh": 352,
+        "segmentIndex": 0
+      },
+      {
+        "center": { "latitude": 45.74848, "longitude": 4.84672 },
+        "orientation": "LANDSCAPE",
+        "yearlyEnergyDcKwh": 348,
+        "segmentIndex": 1
+      },
+      {
+        "center": { "latitude": 45.74848, "longitude": 4.84675 },
+        "orientation": "LANDSCAPE",
+        "yearlyEnergyDcKwh": 346,
+        "segmentIndex": 1
+      },
+      {
+        "center": { "latitude": 45.74848, "longitude": 4.84678 },
+        "orientation": "LANDSCAPE",
+        "yearlyEnergyDcKwh": 343,
+        "segmentIndex": 1
+      },
+      {
+        "center": { "latitude": 45.74848, "longitude": 4.84681 },
+        "orientation": "LANDSCAPE",
+        "yearlyEnergyDcKwh": 340,
+        "segmentIndex": 1
+      }
+    ],
+    "solarPanelConfigs": [
+      {
+        "panelsCount": 8,
+        "yearlyEnergyDcKwh": 2802,
+        "roofSegmentSummaries": [
+          { "pitchDegrees": 22, "azimuthDegrees": 178, "panelsCount": 4, "yearlyEnergyDcKwh": 1425, "segmentIndex": 0 },
+          { "pitchDegrees": 22, "azimuthDegrees": 358, "panelsCount": 4, "yearlyEnergyDcKwh": 1377, "segmentIndex": 1 }
+        ]
+      }
+    ]
+  }
+}
