@@ -149,7 +149,7 @@ export function Aides({ data }: AidesProps) {
           />
           <ChiffreCleSucces
             label="Économie annuelle"
-            valeur={`${c.economie_annuelle_eur.toLocaleString('fr-FR')} €/an`}
+            valeur={`${c.economie_annuelle_eur.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} €/an`}
           />
           <ChiffreCleSucces
             label="Retour sur investissement"
