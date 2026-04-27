@@ -58,7 +58,7 @@ export interface CalculSolaire {
   obligation_aper: boolean
   obligation_decret_tertiaire: boolean
   // Métadonnées
-  source_api: 'google_solar' | 'pvgis' | 'manuel'
+  source_api: 'pvgis' | 'manuel'
   created_at: string
 }
 
@@ -73,7 +73,7 @@ export interface OutreachContact {
   email_pro?: string
   telephone_pro?: string
   linkedin_url?: string
-  source: 'pappers' | 'sirene' | 'linkedin' | 'manuel'
+  source: 'insee' | 'annuaire_entreprises' | 'hunter' | 'linkedin' | 'manuel'
   email_verifie: boolean
   created_at: string
 }

@@ -9,7 +9,7 @@
  *
  * Sources :
  * - IGN apicarto : https://apicarto.ign.fr/api/cadastre/parcelle (GeoJSON)
- * - BDNB CSTB    : https://bdnb.io/api/v1/donnees/batiment_groupe (JSON)
+ * - BDNB CSTB    : https://api.bdnb.io/v1/bdnb/donnees/batiment_groupe_complet (JSON)
  * =============================================================================
  */
 
@@ -67,26 +67,44 @@ export interface IgnParcelleCollection {
 /**
  * Une ligne batiment renvoyee par BDNB. La BDNB expose ~150 colonnes
  * mais on ne s'interesse ici qu'a celles utiles au sourcing tertiaire.
+ *
+ * Nouvelle API (api-open.bdnb.io) : certains noms de colonnes ont change
+ * par rapport a l'ancienne API (bdnb.io/api). On garde les deux pour
+ * la retro-compatibilite des fixtures de test.
  */
 export interface BdnbBatiment {
   /** Identifiant unique du batiment groupe (ex: "bdnb-bg-0123ABCD") */
   batiment_groupe_id: string
+  /** Nouvelle API : code_commune_insee. Ancienne : code_insee */
+  code_commune_insee?: string
+  /** Retro-compat ancienne API */
   code_insee?: string
   code_departement_insee?: string
+  /** Commune parente (Paris/Lyon/Marseille : code commune global) */
+  commune_parente?: string
   code_postal?: string
   /** Adresse libre normalisee si disponible */
   libelle_adr_principale_ban?: string
-  /** Coordonnees centroides en WGS84 */
+  /** Nouvelle API : geometrie GeoJSON (objet) ou WKT (string) du groupe */
+  geom_groupe?: string | Record<string, unknown>
+  /** Ancienne API : centroide WKT */
   geom_centroide?: string
-  /** Surface d'activite (m2) - la cible loi APER >= 500 m2 */
+  /** Nouvelle API : surface geometrique du groupe (m2) */
+  s_geom_groupe?: number
+  /** Ancienne API : surface d'activite (m2) */
   surface_activite?: number
   /** Usage principal (tertiaire, residentiel, industriel...) */
   usage_principal_bdnb_open?: string
   annee_construction?: number
+  /** Ancienne API : nb_niveau */
   nb_niveau?: number
+  /** Nouvelle API : nb_log (nombre de logements) */
+  nb_log?: number
   /** SIRET du proprietaire si renseigne */
   siret_proprietaire?: string
-  /** Latitude calculee (peut venir d'un autre champ selon l'API) */
+  /** Nouvelle API : liste de SIREN associes */
+  l_siren?: string[]
+  /** Latitude calculee */
   latitude?: number
   longitude?: number
 }

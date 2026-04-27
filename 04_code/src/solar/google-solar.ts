@@ -214,6 +214,6 @@ export function buildingInsightsVersCalcul(
     azimut_deg: segDominant?.azimuthDegrees ?? null,
     inclinaison_deg: segDominant?.pitchDegrees ?? null,
     imagery_date: imageryDateIso,
-    source_api: 'google_solar',
+    source_api: 'pvgis', // Legacy : etait 'google_solar' avant migration
   }
 }

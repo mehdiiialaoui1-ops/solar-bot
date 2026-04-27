@@ -181,7 +181,7 @@ describe('buildingInsightsVersCalcul', () => {
     expect(calcul!.azimut_deg).toBe(178)
     expect(calcul!.inclinaison_deg).toBe(22)
     expect(calcul!.imagery_date).toBe('2024-06-15')
-    expect(calcul!.source_api).toBe('google_solar')
+    expect(calcul!.source_api).toBe('pvgis')
   })
 
   it('renvoie null si solarPotential absent', () => {

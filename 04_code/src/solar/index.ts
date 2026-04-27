@@ -2,41 +2,45 @@
  * =============================================================================
  * ERE SOLAR BOT - Orchestrateur calculs solaires
  * =============================================================================
- * Combine Google Solar Building Insights + Google Maps Static pour
+ * Combine PVGIS (production solaire) + IGN WMS (image aerienne) pour
  * produire un calcul complet pour un prospect :
  *   - dimensionnement (nb panneaux, puissance kWc, production kWh/an)
- *   - URL image satellite pour le microsite
+ *   - URL image aerienne pour le microsite
  *   - calculs financiers (reutilise @/lib/calculs-solaires)
  *
- * NB : pas d'insertion DB ici tant que la PR J2 n'est pas mergee.
+ * Remplace l'ancien orchestrateur Google Solar + Google Maps Static.
  * =============================================================================
  */
 
-import {
-  fetchBuildingInsights,
-  buildingInsightsVersCalcul,
-} from './google-solar'
-import { buildStaticMapUrl } from './google-maps-static'
+import { fetchPvgis, pvgisVersCalcul } from './pvgis'
+import { buildOrthophotoUrl } from './ign-orthophoto'
 import type { CalculSolaireResult } from './types'
 import {
+  calculerNbPanneaux,
+  calculerPuissanceKwc,
   calculerEconomieAnnuelle,
   calculerROI,
   estimerCoutInstallation,
   calculerPrimeAutoconsommation,
   calculerSuramortissement,
+  RATIO_SURFACE_UTILE,
 } from '@/lib/calculs-solaires'
 
 export interface CalculerPotentielSolaireOptions {
   lat: number
   lng: number
-  apiKeyGoogleSolar: string
-  apiKeyGoogleMaps: string
+  /** Surface de toiture totale en m2 (issue du sourcing BDNB/IGN) */
+  surfaceToitureM2: number
+  /** Inclinaison du toit en degres. Defaut : 30 */
+  inclinaisonDeg?: number
+  /** Azimut : 0=sud, -90=est, 90=ouest. Defaut : 0 */
+  azimutDeg?: number
   prospectId?: string | null
   fetchImpl?: typeof fetch
 }
 
 export interface PotentielSolaireComplet extends CalculSolaireResult {
-  /** URL image satellite pour le microsite */
+  /** URL image aerienne IGN pour le microsite */
   satelliteImageUrl: string
   /** Calculs financiers */
   cout_installation_eur: number
@@ -47,39 +51,50 @@ export interface PotentielSolaireComplet extends CalculSolaireResult {
 }
 
 /**
- * Calcul complet pour un prospect : appelle Google Solar pour le
- * dimensionnement, construit l'URL image satellite et chaine les
- * calculs financiers.
+ * Calcul complet pour un prospect :
+ * 1. Dimensionnement panneaux a partir de la surface de toiture
+ * 2. Appel PVGIS pour la production estimee
+ * 3. Construction de l'URL image aerienne IGN
+ * 4. Calculs financiers
  */
 export async function calculerPotentielSolaire(
   opts: CalculerPotentielSolaireOptions,
-): Promise<PotentielSolaireComplet | null> {
-  // 1. Building Insights (panneaux, production, segments toiture)
-  const insights = await fetchBuildingInsights({
+): Promise<PotentielSolaireComplet> {
+  // 1. Dimensionnement a partir de la surface
+  const surfaceUtile = opts.surfaceToitureM2 * RATIO_SURFACE_UTILE
+  const nbPanneaux = calculerNbPanneaux(opts.surfaceToitureM2)
+  const puissanceKwc = calculerPuissanceKwc(nbPanneaux)
+
+  // 2. PVGIS — production solaire estimee
+  const pvgis = await fetchPvgis({
     lat: opts.lat,
     lng: opts.lng,
-    apiKey: opts.apiKeyGoogleSolar,
+    puissanceKwc,
+    angleDeg: opts.inclinaisonDeg ?? 30,
+    aspectDeg: opts.azimutDeg ?? 0,
     fetchImpl: opts.fetchImpl,
   })
 
-  const calcul = buildingInsightsVersCalcul(insights, opts.prospectId ?? null)
-  if (!calcul) return null
+  const calcul = pvgisVersCalcul(
+    pvgis,
+    nbPanneaux,
+    surfaceUtile,
+    opts.prospectId ?? null,
+  )
 
-  // 2. URL image satellite (centree sur le batiment)
-  const satelliteImageUrl = buildStaticMapUrl({
-    lat: insights.center.latitude,
-    lng: insights.center.longitude,
-    apiKey: opts.apiKeyGoogleMaps,
+  // 3. URL image aerienne IGN (centree sur le batiment)
+  const satelliteImageUrl = buildOrthophotoUrl({
+    lat: opts.lat,
+    lng: opts.lng,
     zoom: 20,
     width: 800,
     height: 600,
-    scale: 2,
   })
 
-  // 3. Calculs financiers (reutilise les fonctions pures de J1)
-  const cout = estimerCoutInstallation(calcul.puissance_kwc)
+  // 4. Calculs financiers
+  const cout = estimerCoutInstallation(puissanceKwc)
   const economie = calculerEconomieAnnuelle(calcul.production_kwh_an)
-  const prime = calculerPrimeAutoconsommation(calcul.puissance_kwc)
+  const prime = calculerPrimeAutoconsommation(puissanceKwc)
   const sura = calculerSuramortissement(cout)
   const aidesTotales = prime + sura
   const roi = calculerROI(cout, economie, aidesTotales)
@@ -96,7 +111,7 @@ export async function calculerPotentielSolaire(
 }
 
 // Re-exports
-export type { BuildingInsightsResponse, CalculSolaireResult } from './types'
+export type { CalculSolaireResult } from './types'
 export { SolarApiError } from './types'
-export { buildSolarUrl, fetchBuildingInsights, selectionnerConfigMax } from './google-solar'
-export { buildStaticMapUrl, gpsVersPixelImage } from './google-maps-static'
+export { fetchPvgis, pvgisVersCalcul, buildPvgisUrl } from './pvgis'
+export { buildOrthophotoUrl, fetchOrthophoto, calculerBbox } from './ign-orthophoto'

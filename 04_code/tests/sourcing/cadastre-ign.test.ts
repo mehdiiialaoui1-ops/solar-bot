@@ -163,8 +163,7 @@ describe('centroideParcelle', () => {
   it('retourne null sur geometrie absente', () => {
     const f = {
       type: 'Feature' as const,
-      // @ts-expect-error - geometrie volontairement absente
-      geometry: null,
+      geometry: null as unknown as import('../../src/sourcing/types').IgnParcelleGeometry,
       properties: { id: 'X' },
     }
     expect(centroideParcelle(f)).toBeNull()

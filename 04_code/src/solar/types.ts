@@ -115,7 +115,7 @@ export interface CalculSolaireResult {
   azimut_deg: number | null
   inclinaison_deg: number | null
   imagery_date: string | null
-  source_api: 'google_solar' | 'pvgis' | 'manuel'
+  source_api: 'pvgis' | 'manuel'
 }
 
 // ----------------------------------------------------------------------------

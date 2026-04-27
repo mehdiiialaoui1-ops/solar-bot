@@ -10,6 +10,7 @@ import {
   buildBdnbUrl,
   fetchBatiments,
   parseWktPoint,
+  parseGeoJsonCentroid,
   bdnbVersProspectCandidat,
   BDNB_ENDPOINT,
   SURFACE_APER_M2,
@@ -29,17 +30,28 @@ const fixture: BdnbReponse = JSON.parse(
 // =============================================
 
 describe('buildBdnbUrl', () => {
-  it("construit l'URL avec defauts (tertiaire, surface 500)", () => {
+  it("construit l'URL avec defauts PostgREST (Tertiaire, limit 100)", () => {
     const url = buildBdnbUrl({ codeInsee: '75101' })
     expect(url).toContain(BDNB_ENDPOINT)
-    expect(url).toContain('code_insee=75101')
-    expect(url).toContain('usage_principal_bdnb_open=tertiaire')
-    expect(url).toContain('surface_activite_min=500')
+    expect(url).toContain('code_commune_insee=eq.75101')
+    expect(url).toContain('usage_principal_bdnb_open=eq.Tertiaire')
+    expect(url).toContain('limit=100')
   })
 
-  it('respecte une surface minimale custom', () => {
-    const url = buildBdnbUrl({ codeInsee: '75101', surfaceMinM2: 1000 })
-    expect(url).toContain('surface_activite_min=1000')
+  it('supporte le champ commune_parente pour les arrondissements', () => {
+    const url = buildBdnbUrl({ codeInsee: '69123', communeField: 'commune_parente' })
+    expect(url).toContain('commune_parente=eq.69123')
+    expect(url).not.toContain('code_commune_insee')
+  })
+
+  it('supporte un offset pour la pagination', () => {
+    const url = buildBdnbUrl({ codeInsee: '75101', offset: 500 })
+    expect(url).toContain('offset=500')
+  })
+
+  it('n ajoute pas offset=0', () => {
+    const url = buildBdnbUrl({ codeInsee: '75101' })
+    expect(url).not.toContain('offset=')
   })
 
   it('rejette un code INSEE invalide', () => {
@@ -52,73 +64,87 @@ describe('buildBdnbUrl', () => {
 // =============================================
 
 describe('fetchBatiments', () => {
-  it('agrege les resultats sur une seule page', async () => {
+  // La fixture est au format ancien {results: [...]}. On extrait les
+  // batiments en tableau pour simuler le nouveau format PostgREST.
+  const batimentsArray = fixture.results
+
+  it('retourne les batiments >= 500 m2 (filtre client)', async () => {
     const fakeFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
       statusText: 'OK',
-      json: async () => fixture,
+      json: async () => batimentsArray,
     } as Response)
 
     const batiments = await fetchBatiments({
       codeInsee: '75101',
       fetchImpl: fakeFetch as unknown as typeof fetch,
     })
-    expect(batiments).toHaveLength(4)
+    // 4 batiments dans la fixture, mais 1 fait 320 m2 -> filtre cote client
+    expect(batiments).toHaveLength(3)
     expect(fakeFetch).toHaveBeenCalledOnce()
   })
 
-  it('suit la pagination via "next"', async () => {
-    const page1: BdnbReponse = {
-      results: fixture.results.slice(0, 2),
-      next: 'https://bdnb.io/api/v1/donnees/batiment_groupe?page=2',
-      previous: null,
-    }
-    const page2: BdnbReponse = {
-      results: fixture.results.slice(2),
-      next: null,
-      previous: null,
-    }
+  it('pagine via offset quand la page est pleine', async () => {
+    // Simule 2 pages de taille 2
     const fakeFetch = vi
       .fn()
       .mockResolvedValueOnce({
         ok: true,
         status: 200,
         statusText: 'OK',
-        json: async () => page1,
+        json: async () => batimentsArray.slice(0, 2), // page pleine (2 = pageSize)
       } as Response)
       .mockResolvedValueOnce({
         ok: true,
         status: 200,
         statusText: 'OK',
-        json: async () => page2,
+        json: async () => batimentsArray.slice(2), // page partielle (2 < pageSize) -> fin
       } as Response)
 
     const batiments = await fetchBatiments({
       codeInsee: '75101',
       fetchImpl: fakeFetch as unknown as typeof fetch,
+      pageSize: 2,
     })
-    expect(batiments).toHaveLength(4)
+    // 4 batiments - 1 sous le seuil = 3
+    expect(batiments).toHaveLength(3)
     expect(fakeFetch).toHaveBeenCalledTimes(2)
   })
 
   it('respecte maxPages pour eviter une boucle infinie', async () => {
+    // Simule des pages toujours pleines (pageSize = 1)
     const fakeFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
       statusText: 'OK',
-      json: async () => ({
-        results: [fixture.results[0]],
-        next: 'https://bdnb.io/loop',
-      }),
+      json: async () => [batimentsArray[0]], // 1 resultat = pageSize -> continue
     } as Response)
 
     await fetchBatiments({
       codeInsee: '75101',
       fetchImpl: fakeFetch as unknown as typeof fetch,
+      pageSize: 1,
       maxPages: 3,
     })
+    // 3 pages + 1 derniere verif (page 4 retourne aussi 1 = pageSize)
+    // maxPages=3 -> stoppe apres 3 iterations de la boucle
     expect(fakeFetch).toHaveBeenCalledTimes(3)
+  })
+
+  it('supporte le format ancien {results: [...]} en retro-compat', async () => {
+    const fakeFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      json: async () => fixture, // ancien format avec results/next
+    } as Response)
+
+    const batiments = await fetchBatiments({
+      codeInsee: '75101',
+      fetchImpl: fakeFetch as unknown as typeof fetch,
+    })
+    expect(batiments).toHaveLength(3) // 4 - 1 sous seuil
   })
 
   it('lève SourcingError sur HTTP 503', async () => {
@@ -160,6 +186,47 @@ describe('parseWktPoint', () => {
     expect(parseWktPoint('FOO')).toBeNull()
     expect(parseWktPoint(undefined)).toBeNull()
     expect(parseWktPoint('POINT(abc def)')).toBeNull()
+  })
+})
+
+// =============================================
+// parseGeoJsonCentroid
+// =============================================
+
+describe('parseGeoJsonCentroid', () => {
+  it('calcule le centroide d un Polygon GeoJSON', () => {
+    const geom = {
+      type: 'Polygon',
+      coordinates: [[[2.0, 48.0], [2.1, 48.0], [2.1, 48.1], [2.0, 48.1], [2.0, 48.0]]],
+    }
+    const result = parseGeoJsonCentroid(geom)
+    expect(result).not.toBeNull()
+    expect(result!.lng).toBeCloseTo(2.05, 2)
+    expect(result!.lat).toBeCloseTo(48.05, 2)
+  })
+
+  it('calcule le centroide d un MultiPolygon GeoJSON', () => {
+    const geom = {
+      type: 'MultiPolygon',
+      coordinates: [[[[2.0, 48.0], [2.1, 48.0], [2.1, 48.1], [2.0, 48.1], [2.0, 48.0]]]],
+    }
+    const result = parseGeoJsonCentroid(geom)
+    expect(result).not.toBeNull()
+    expect(result!.lng).toBeCloseTo(2.05, 2)
+  })
+
+  it('retourne null si undefined', () => {
+    expect(parseGeoJsonCentroid(undefined)).toBeNull()
+  })
+
+  it('parse une string GeoJSON', () => {
+    const geomStr = JSON.stringify({
+      type: 'Polygon',
+      coordinates: [[[2.35, 48.85], [2.36, 48.85], [2.36, 48.86], [2.35, 48.86], [2.35, 48.85]]],
+    })
+    const result = parseGeoJsonCentroid(geomStr)
+    expect(result).not.toBeNull()
+    expect(result!.lat).toBeCloseTo(48.855, 2)
   })
 })
 
