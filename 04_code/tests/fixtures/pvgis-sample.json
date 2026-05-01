@@ -1,0 +1,46 @@
+{
+  "inputs": {
+    "location": { "latitude": 45.7485, "longitude": 4.8467 },
+    "meteo_data": { "radiation_db": "PVGIS-SARAH2", "year_min": 2005, "year_max": 2020 },
+    "mounting_system": {
+      "fixed": {
+        "slope": { "value": 30, "optimal": false },
+        "azimuth": { "value": 0, "optimal": false }
+      }
+    },
+    "pv_module": {
+      "technology": "c-Si",
+      "peak_power": 99.2,
+      "system_loss": 14
+    }
+  },
+  "outputs": {
+    "monthly": {
+      "fixed": [
+        { "month": 1, "E_m": 4823, "H(i)_m": 64.8 },
+        { "month": 2, "E_m": 6451, "H(i)_m": 86.2 },
+        { "month": 3, "E_m": 9874, "H(i)_m": 132.5 },
+        { "month": 4, "E_m": 11203, "H(i)_m": 152.1 },
+        { "month": 5, "E_m": 12180, "H(i)_m": 167.4 },
+        { "month": 6, "E_m": 12502, "H(i)_m": 174.2 },
+        { "month": 7, "E_m": 13050, "H(i)_m": 182.8 },
+        { "month": 8, "E_m": 12128, "H(i)_m": 169.5 },
+        { "month": 9, "E_m": 9921, "H(i)_m": 136.2 },
+        { "month": 10, "E_m": 7503, "H(i)_m": 102.4 },
+        { "month": 11, "E_m": 5012, "H(i)_m": 67.1 },
+        { "month": 12, "E_m": 4253, "H(i)_m": 56.8 }
+      ]
+    },
+    "totals": {
+      "fixed": {
+        "E_y": 108900,
+        "H(i)_y": 1492.0,
+        "SD_y": 4.2
+      }
+    }
+  },
+  "meta": {
+    "inputs": {},
+    "outputs": {}
+  }
+}
